@@ -2,6 +2,7 @@
 # Shelley MacNeil
 
 library(shiny)
+library(httr)
 #library(devtools)
 #library(GSOA)
 #library(e1071)
@@ -33,7 +34,7 @@ shinyServer(function(input, output, session) {
  # what happens when you press run.   
  observeEvent(input$run, {
    
-   output$path <- renderText(input$dataFile$datapath)
+   
   
   # pop up message dialog boxes if files arn't present
   #if (is.null(input$dataFile) && is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing Data File, Class File, and GMT File")}
@@ -45,51 +46,35 @@ shinyServer(function(input, output, session) {
   #if (!is.null(input$dataFile) && !is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing GMT File")}
   #if (!is.null(input$dataFile) && !is.null(input$classFile) && !is.null(input$gmtFile)){
       #{shinyjs::alert("GSOA is running. An e-mail with your results will be sent shortly. ")
-      
+  
+   file.copy(input$dataFile$datapath, paste("/data", input$dataFile$name, sep="/"))   
+   file.copy(input$classFile$datapath, paste("/data", input$classFile$name, sep="/"))
+   file.copy(input$gmtFile$datapath, paste("/data", input$gmtFile$name, sep="/"))
+   
+   variables = list(dataFilePath = paste("/data", input$dataFile$name, sep="/"),
+                    classFilePath=paste("/data", input$classFile$name, sep="/"),
+                    gmtFilePath=paste("/data", input$gmtFile$name, sep="/"))
+   
+   POST('http://gsoa:5000/',body = variables , encode="json")
+   
+   output$path <- renderText(input$dataFile$datapath)
     
-   # job dir name
-   job_dir="~/Documents/PhDProjects/genomicsAPI/GSOA-Shiny/JobsToRun"
-   getwd()
-   list.files()
-  
-    # create the first part for all job names
-   basic_job_name="~/Documents/PhDProjects/genomicsAPI/GSOA-Shiny/JobsToRun/JobName"
-   basic_job_name
-   
-   # paste the time as a job identifier
-   job_name= paste(basic_job_name, format(Sys.time(), "%x_%X"), sep= "_")
-   job_name
-   
-   
-   
-   # specific job name folder 
-   dir.create("check")
-   
-   # copy the file to the server
-   file.copy(input$dataFile$datapath, job_name)
-   #file.rename("0", "classFile.txt")
-  
- # file.rename(paste(dir_path , "P53_classFile.txt", sep="/"), paste(dir_path , "classFile.txt", sep="/"))  
-
-  
-  #}
-   
-   
-   })
+    
+     })
+ 
+ 
+ 
+ 
 })
 
-#GSOA_h = GSOA_ProcessFiles(dataFilePath = input$dataFile$datapath, classFilePath = input$classFile$datapath, gmtFilePath = input$gmtFile_hallmarks$datapath)
+
+#output$console <- renderPrint({
+#  capture.output(GSOA_ProcessFiles(dataFilePath = input$dataFile$datapath, classFilePath = input$classFile$datapath,  gmtFilePath = input$gmtFile_hallmarks$datapath))
+#})
 
 
-     #make a data frame with variabvles
-     #make another file with the paramters with the 
-    
-  
 
-    #if (input$runButton == 0) {
-    #  return(NULL)
-    #}
- # })
+ 
   
   
     #output$results <- renderDataTable({ 
@@ -110,14 +95,9 @@ shinyServer(function(input, output, session) {
 
     # check to make sure all required files are there 
 
-    #GSOA_h=GSOA_ProcessFiles(dataFilePath = input$dataFile$datapath, classFilePath = input$classFile$datapath,  
-    #  gmtFilePath = input$gmtFile_hallmarks$datapath, outFilePath=NA, classificationAlgorithm = input$Algorithm, 
-    # numCrossValidationFolds = input$CrossValidation, numRandomIterations = input$Iterations, 
-    #  removePercentLowestVar = input$Variance, removePercentLowestExpr = input$LowExpression)
+
     
-    #output$console <- renderPrint({
-    #  capture.output(GSOA_ProcessFiles(dataFilePath = input$dataFile$datapath, classFilePath = input$classFile$datapath,  gmtFilePath = input$gmtFile_hallmarks$datapath))
-    #})
+    
   
   #observeEvent(input$runButton, {
 
