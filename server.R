@@ -46,7 +46,8 @@ shinyServer(function(input, output, session) {
   #if (!is.null(input$dataFile) && !is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing GMT File")}
   #if (!is.null(input$dataFile) && !is.null(input$classFile) && !is.null(input$gmtFile)){
       #{shinyjs::alert("GSOA is running. An e-mail with your results will be sent shortly. ")
-  
+   
+   Sys.sleep(2)
    file.copy(input$dataFile$datapath, paste("/data", input$dataFile$name, sep="/"))   
    file.copy(input$classFile$datapath, paste("/data", input$classFile$name, sep="/"))
    file.copy(input$gmtFile$datapath, paste("/data", input$gmtFile$name, sep="/"))
