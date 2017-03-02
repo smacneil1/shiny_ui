@@ -48,9 +48,9 @@ shinyServer(function(input, output, session) {
       #{shinyjs::alert("GSOA is running. An e-mail with your results will be sent shortly. ")
    
    Sys.sleep(2)
-   system("cp "+ input$dataFile$datapath + " " + paste("/data", input$dataFile$name, sep="/"))
-   system("cp "+ input$classFile$datapath + " " + paste("/data", input$dataFile$name, sep="/"))
-   system("cp "+ input$gmtFile$datapath + " " + paste("/data", input$dataFile$name, sep="/"))
+   system(paste("cp",input$dataFile$datapath, paste("/data", input$dataFile$name, sep="/"), sep=" "))
+   system(paste("cp",input$classFile$datapath, paste("/data", input$dataFile$name, sep="/"), sep=" "))
+   system(paste("cp",input$gmtFile$datapath, paste("/data", input$dataFile$name, sep="/"), sep=" "))
    
    variables = list(dataFilePath = paste("/data", input$dataFile$name, sep="/"),
                     classFilePath=paste("/data", input$classFile$name, sep="/"),
