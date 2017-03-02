@@ -49,8 +49,8 @@ shinyServer(function(input, output, session) {
    
 
    system(paste("cp",input$dataFile$datapath, paste("/data", input$dataFile$name, sep="/"), sep=" "))
-   system(paste("cp",input$classFile$datapath, paste("/data", input$dataFile$name, sep="/"), sep=" "))
-   system(paste("cp",input$gmtFile$datapath, paste("/data", input$dataFile$name, sep="/"), sep=" "))
+   system(paste("cp",input$classFile$datapath, paste("/data", input$classFile$name, sep="/"), sep=" "))
+   system(paste("cp",input$gmtFile$datapath, paste("/data", input$gmtFile$name, sep="/"), sep=" "))
    
    variables = list(dataFilePath = paste("/data", input$dataFile$name, sep="/"),
                     classFilePath=paste("/data", input$classFile$name, sep="/"),
