@@ -54,7 +54,8 @@ shinyServer(function(input, output, session) {
    
    variables = list(dataFilePath = paste("/data", input$dataFile$name, sep="/"),
                     classFilePath=paste("/data", input$classFile$name, sep="/"),
-                    gmtFilePath=paste("/data", input$gmtFile$name, sep="/"))
+                    gmtFilePath=paste("/data", input$gmtFile$name, sep="/"),
+                    email=input$results_h)
    
    POST('http://gsoa:5000/',body = variables , encode="json")
    
