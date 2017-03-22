@@ -115,8 +115,8 @@ shinyUI(fluidPage(tagList(
             ),
             bsPopover(
               id = "checkbox",
-              title = "Select if you want to run the Hallmark Genesets",
-              content = "www.shelleymacneil.com" ,
+              title = "Select if you want to run the Hallmark Analysis",
+              content = "The hallmark gene sets represent 50 important pathways curated by the Molecular Signatures Database with the goal of reducing redundancy " ,
               placement = "right",
               trigger = "hover"
             )
@@ -159,7 +159,7 @@ shinyUI(fluidPage(tagList(
           style = "height: 65px;",
           textInput(
             'results_h',
-            value = "shelley@utah.edu ",
+            value = "smacneil88@gmail.com ",
             width = "70%",
             label = 'E-mail Address'
           )),

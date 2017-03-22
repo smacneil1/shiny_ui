@@ -34,40 +34,93 @@ shinyServer(function(input, output, session) {
  # what happens when you press run.   
  observeEvent(input$run, {
    
-   
-  
-  # pop up message dialog boxes if files arn't present
-  #if (is.null(input$dataFile) && is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing Data File, Class File, and GMT File")}
-  #if (is.null(input$dataFile) && is.null(input$classFile) && !is.null(input$gmtFile)) {shinyjs::alert("Missing Data File and Class File")}
-  #if (is.null(input$dataFile) && !is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing Data File and GMT File")}
-  #if (!is.null(input$dataFile) && is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing Class File and GMT File")}
-  #if (is.null(input$dataFile) && !is.null(input$classFile) && !is.null(input$gmtFile)) {shinyjs::alert("Missing Data File")}
-  #if (!is.null(input$dataFile) && is.null(input$classFile) && !is.null(input$gmtFile)) {shinyjs::alert("Missing Class File")}
-  #if (!is.null(input$dataFile) && !is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing GMT File")}
-  #if (!is.null(input$dataFile) && !is.null(input$classFile) && !is.null(input$gmtFile)){
-      #{shinyjs::alert("GSOA is running. An e-mail with your results will be sent shortly. ")
-   
-
+   # pop up message dialog boxes if files arn't present
+   if (is.null(input$dataFile) && is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing Data File, Class File, and GMT File")}
+   if (is.null(input$dataFile) && is.null(input$classFile) && !is.null(input$gmtFile)) {shinyjs::alert("Missing Data File and Class File")}
+   if (is.null(input$dataFile) && !is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing Data File and GMT File")}
+   if (!is.null(input$dataFile) && is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing Class File and GMT File")}
+   if (is.null(input$dataFile) && !is.null(input$classFile) && !is.null(input$gmtFile)) {shinyjs::alert("Missing Data File")}
+   if (!is.null(input$dataFile) && is.null(input$classFile) && !is.null(input$gmtFile)) {shinyjs::alert("Missing Class File")}
+   if (!is.null(input$dataFile) && !is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing GMT File")}
+   if (!is.null(input$dataFile) && !is.null(input$classFile) && !is.null(input$gmtFile))
+     {shinyjs::alert("GSOA is running. An e-mail with your results will be sent shortly. ")
+     
    system(paste("cp",input$dataFile$datapath, paste("/data", input$dataFile$name, sep="/"), sep=" "))
    system(paste("cp",input$classFile$datapath, paste("/data", input$classFile$name, sep="/"), sep=" "))
    system(paste("cp",input$gmtFile$datapath, paste("/data", input$gmtFile$name, sep="/"), sep=" "))
    
-   variables = list(dataFilePath = paste("/data", input$dataFile$name, sep="/"),
-                    classFilePath=paste("/data", input$classFile$name, sep="/"),
-                    gmtFilePath=paste("/data", input$gmtFile$name, sep="/"),
-                    email=input$results_h)
+   dataFilePath1 = paste("/data", input$dataFile$name, sep="/")
+   
+   # copy the files over to the data folder and make a variable for their paths
+   if (!is.null(input$dataFile2)){system(paste("cp",input$dataFile2$datapath, paste("/data", input$dataFile2$name, sep="/"), sep=" "))
+     dataFilePath2 = paste("/data", input$dataFile2$name, sep="/")}
+   if (!is.null(input$dataFile3)){system(paste("cp",input$dataFile3$datapath, paste("/data", input$dataFile3$name, sep="/"), sep=" "))
+     dataFilePath3 = paste("/data", input$dataFile3$name, sep="/")}
+   if (!is.null(input$dataFile4)){system(paste("cp",input$dataFile4$datapath, paste("/data", input$dataFile4$name, sep="/"), sep=" "))
+     dataFilePath4 = paste("/data", input$dataFile4$name, sep="/")}
+   if (!is.null(input$dataFile5)){system(paste("cp",input$dataFile5$datapath, paste("/data", input$dataFile5$name, sep="/"), sep=" "))
+     dataFilePath5 = paste("/data", input$dataFile5$name, sep="/")}
+   
+   #send the variabes depending on how many files 
+   if (!is.null(input$dataFile) && is.null(input$dataFile2) && is.null(input$dataFile3) && is.null(input$dataFile4) && is.null(input$dataFile5))
+   {variables = list(dataFilePath = paste("/data", input$dataFile$name, sep="/"), 
+                                        classFilePath=paste("/data", input$classFile$name, sep="/"),
+                                        gmtFilePath=paste("/data", input$gmtFile$name, sep="/"), email=input$results_h, 
+                                        classificationAlgorithm=input$Algorithm, numCrossValidationFolds=input$CrossValidation, numRandomIterations=input$Iterations, removePercentLowestExpr=input$LowExpression, 
+                                        removePercentLowestVar=input$Variance)}
+   
+   if (!is.null(input$dataFile) && !is.null(input$dataFile2) && is.null(input$dataFile3) && is.null(input$dataFile4) && is.null(input$dataFile5))
+   {   variables = list(dataFilePath = c(dataFilePath1,  dataFilePath2), classFilePath=paste("/data", input$classFile$name, sep="/"),
+                        gmtFilePath=paste("/data", input$gmtFile$name, sep="/"), email=input$results_h, 
+                        classificationAlgorithm=input$Algorithm, numCrossValidationFolds=input$CrossValidation, numRandomIterations=input$Iterations, removePercentLowestExpr=input$LowExpression, 
+                        removePercentLowestVar=input$Variance)}
+   
+   if (!is.null(input$dataFile) && !is.null(input$dataFile2) && !is.null(input$dataFile3) && is.null(input$dataFile4) && is.null(input$dataFile5))
+   {   variables = list(dataFilePath = c(dataFilePath1,  dataFilePath2, dataFilePath3),
+                        classFilePath=paste("/data", input$classFile$name, sep="/"),
+                        gmtFilePath=paste("/data", input$gmtFile$name, sep="/"), email=input$results_h, 
+                        classificationAlgorithm=input$Algorithm, numCrossValidationFolds=input$CrossValidation, numRandomIterations=input$Iterations, removePercentLowestExpr=input$LowExpression, 
+                        removePercentLowestVar=input$Variance)}
+  
+    if (!is.null(input$dataFile) && !is.null(input$dataFile2) && !is.null(input$dataFile3) && !is.null(input$dataFile4) && is.null(input$dataFile5))
+   {   variables = list(dataFilePath = c(dataFilePath1,  dataFilePath2, dataFilePath3, dataFilePath4),
+                        classFilePath=paste("/data", input$classFile$name, sep="/"),
+                        gmtFilePath=paste("/data", input$gmtFile$name, sep="/"), email=input$results_h, 
+                        classificationAlgorithm=input$Algorithm, numCrossValidationFolds=input$CrossValidation, numRandomIterations=input$Iterations, removePercentLowestExpr=input$LowExpression, 
+                        removePercentLowestVar=input$Variance)}
+   
+   if (!is.null(input$dataFile) && !is.null(input$dataFile2) && !is.null(input$dataFile3) && !is.null(input$dataFile4) && !is.null(input$dataFile5))
+   {   variables = list(dataFilePath = c(dataFilePath1,  dataFilePath2, dataFilePath3, dataFilePath4, dataFilePath5),
+                        classFilePath=paste("/data", input$classFile$name, sep="/"),
+                        gmtFilePath=paste("/data", input$gmtFile$name, sep="/"), email=input$results_h, 
+                        classificationAlgorithm=input$Algorithm, numCrossValidationFolds=input$CrossValidation, numRandomIterations=input$Iterations, removePercentLowestExpr=input$LowExpression, 
+                        removePercentLowestVar=input$Variance)}
+   
+   
+   
+   
+   
+   
+   
+
+   
+  # 
    
    POST('http://gsoa:5000/',body = variables , encode="json")
    
-   output$path <- renderText(input$dataFile$datapath)
+   output$path <- renderText(c(input$dataFile$datapath,input$dataFile2$datapath) )
     
-    
+   #GSOA_ProcessFiles(paths, input$classFile$datapath, input$gmtFile$datapath, numCrossValidationFolds=10, numRandomIterations = 10)
+   
+   }
      })
  
  
  
  
 })
+
+
 
 
 #output$console <- renderPrint({
