@@ -257,7 +257,7 @@ shinyUI(fluidPage(tagList(
     
     # Other Tabs
     tabPanel("Instructions for Use",includeMarkdown("doc/instructions.md")),
-    tabPanel("Demo Data",includeMarkdown("doc/Demo.md")),
+    tabPanel("Demo Data",includeMarkdown("doc/demo.md")),
     tabPanel("About", includeMarkdown("doc/about.md")),
     tabPanel("Code", includeMarkdown("doc/code.md")),
     tabPanel("Contact", includeMarkdown("doc/contact.md")),
