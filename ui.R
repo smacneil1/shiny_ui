@@ -119,6 +119,17 @@ shinyUI(fluidPage(tagList(
               content = "The hallmark gene sets represent 50 important pathways curated by the Molecular Signatures Database with the goal of reducing redundancy " ,
               placement = "right",
               trigger = "hover"
+            ),
+            div(
+              style = "height: 30px;",
+              checkboxInput("GFRN_sigs", label = "Include Bild Lab Signatures", value = FALSE)
+            ),
+            bsPopover(
+              id = "GFRN_sigs",
+              title = "Select if you want to run all Bild lab signatures",
+              content = "Bild lab signatures consists of experimentallt generated RNA-sequencing signatures from the growth factor receptor network " ,
+              placement = "right",
+              trigger = "hover"
             )
             
 

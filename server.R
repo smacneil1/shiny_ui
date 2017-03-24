@@ -43,7 +43,7 @@ shinyServer(function(input, output, session) {
    if (!is.null(input$dataFile) && is.null(input$classFile) && !is.null(input$gmtFile)) {shinyjs::alert("Missing Class File")}
    if (!is.null(input$dataFile) && !is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing GMT File")}
    if (!is.null(input$dataFile) && !is.null(input$classFile) && !is.null(input$gmtFile))
-     {shinyjs::alert("GSOA is running. An e-mail with your results will be sent shortly. ")
+     {shinyjs::alert("GSOA is running. \n An e-mail with your results will be sent shortly. ")
   
     # add to all file names
     #system("xxd -l 10 -p /dev/urandom")   
@@ -110,7 +110,7 @@ shinyServer(function(input, output, session) {
    
    POST('http://gsoa:5000/',body = variables , encode="json")
    
-   output$path <- renderText(c(input$dataFile$datapath,input$dataFile2$datapath) )
+   output$path <- renderText(c(input$dataFile$datapath,input$dataFile2$name) )
     
    #GSOA_ProcessFiles(paths, input$classFile$datapath, input$gmtFile$datapath, numCrossValidationFolds=10, numRandomIterations = 10)
    
