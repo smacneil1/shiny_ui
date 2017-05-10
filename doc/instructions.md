@@ -1,7 +1,7 @@
 <div id="fixed_width_content">
       
 
-<center><h2>Gene Set Omic Analysis (GSOA) </h2></center>
+<center><h2> Instructions for Use </h2></center>
 <style> hr.hasClass{ width:100%; border:0px; height:1.5px; background-color:black;} </style> <hr class="hasClass">
 <br>
 
