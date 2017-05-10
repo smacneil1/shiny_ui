@@ -1,7 +1,7 @@
 #devtools::install_github("daattali/shinyjs")
-install.packages("shinyBS")
-install.packages("shinythemes")
-install.packages("shinyjs")
+#install.packages("shinyBS")
+#install.packages("shinythemes")
+#install.packages("shinyjs")
 library(shinyBS) #for bootstrap methods
 library(shinythemes) #for background layout
 library(shiny) 
