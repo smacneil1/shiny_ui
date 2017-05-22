@@ -17,6 +17,10 @@ options(shiny.maxRequestSize = 9*1024^2)
 # main server function
 shinyServer(function(input, output, session) {
   
+    output$newWindowContent <- renderUI({
+    "Welcome to your new window!"
+  })
+  
   # for the additional parameters
   onclick("toggleAdvanced", toggle(id = "advanced", anim = TRUE))
   onclick("toggleAdvanced2", toggle(id = "advanced2", anim = TRUE))
@@ -98,14 +102,6 @@ shinyServer(function(input, output, session) {
                         classificationAlgorithm=input$Algorithm, numCrossValidationFolds=input$CrossValidation, numRandomIterations=input$Iterations, removePercentLowestExpr=input$LowExpression, 
                         removePercentLowestVar=input$Variance)}
    
-   
-   
-   
-   
-   
-   
-
-   
   # 
    
    POST('http://gsoa:5000/',body = variables , encode="json")
@@ -116,9 +112,7 @@ shinyServer(function(input, output, session) {
    
    }
      })
- 
- 
- 
+
  
 })
 

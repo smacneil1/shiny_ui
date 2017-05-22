@@ -3,7 +3,7 @@
 #install.packages("shinythemes")
 #install.packages("shinyjs")
 library(shinyBS) #for bootstrap methods
-library(shinythemes) #for background layout
+#library(shinythemes) #for background layout
 library(shiny) 
 library(shinyjs) #javascript for hovers
 
@@ -13,18 +13,40 @@ options(shiny.deprecation.messages=FALSE)
 shinyUI(fluidPage(tagList(
   useShinyjs(),
   # contains all tabs
-  navbarPage(
-    "Gene Set Omic Analysis (GSOA)",
-    id = "page-nav",
-    theme = shinytheme("yeti"),
-    collapsable = TRUE,
+#navbarPage("",
+   # id = "page-nav",
+    #theme = shinytheme("cerulean"),
+    #theme = shinytheme("simplex"),
+    #theme = shinytheme("journal"),
+    #theme = shinytheme("slate"),
+    #theme = shinytheme("united"),
+    #theme = 'bootstrap.css',
+    #shinythemes::themeSelector(),
+    #collapsable = TRUE,
     # GSOA tab
-    tabPanel("Run GSOA",
-      br(),
-      br(),
-      HTML('<center><img src="./GSOA_Logo_Code2.png"></center>'),
-      br(),
-      HTML('<center><h4> GSOA identifies gene sets that differ between two phenotypes by integrating evidence from multi-omic data</h4></center>'),
+    #tabPanel("Run GSOA",
+      #br(),
+      #br(),
+      #HTML('<center><h1> <img src="./gsoa_black.png"> </center>'),
+      uiOutput("newWindowContent", style = "display: none;"),
+    tags$script(HTML("
+      $(document).ready(function() {
+        if(window.location.hash != '') {
+          $('div:not(#newWindowContent)').hide();
+          $('#newWindowContent').show();
+          $('#newWindowContent').appendTo('body');
+        }
+      })
+    ")),
+        a(href = "#Instructions", target = "_blank",
+      actionButton("instructions", "instructions")
+    ),
+      HTML('<center><img src="./gsoa_front_page.png"></center>'),
+      #HTML('<center><h3> An easy-to-use web application for discovering "multi-omic" pathway-level phenotypes. </h4></center>'),
+      #br(),
+      #HTML('<center><h4> GSOA utilizes machine learning algorithms and integrate evidence from "omic" data (RNA, RNA, methylation, ect.) to identify gene set differences between given phenotypes. </h4></center>'),
+      HTML('<center><h5> Developed @ the University of Utah </h4></center>'),
+  
       
       # Column 1: Data Files
       div(id = "inputs",
@@ -256,17 +278,17 @@ shinyUI(fluidPage(tagList(
         singleton(tags$head(tags$script(src = "message-handler.js"))),
         #htmlOutput("sessionInfo"),
         dataTableOutput("results")
-      )),
+      ))
     
     # Other Tabs
-    tabPanel("Instructions for Use",includeMarkdown("doc/instructions.md")),
-    tabPanel("Demo Data",includeMarkdown("doc/demo.md")),
-    tabPanel("About", includeMarkdown("doc/about.md")),
-    tabPanel("Code", includeMarkdown("doc/code.md")),
-    tabPanel("Contact", includeMarkdown("doc/contact.md")),
-    tabPanel("Software Updates", includeMarkdown("doc/version.md"))
+    #tabPanel("Instructions for Use",includeMarkdown("doc/instructions.md")),
+    #tabPanel("Demo Data",includeMarkdown("doc/demo.md")),
+    #tabPanel("About", includeMarkdown("doc/about.md")),
+    #tabPanel("Code", includeMarkdown("doc/code.md")),
+    #tabPanel("Contact", includeMarkdown("doc/contact.md")),
+   # tabPanel("Software Updates", includeMarkdown("doc/version.md"))
   )
-)))
+))
 
 
 ### NOT USING
