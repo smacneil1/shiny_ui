@@ -22,12 +22,12 @@ shinyUI(fluidPage(
       # Column 1: Data Files
     div(id = "inputs", column( 4, offset = 2,
             br(),
-            #div(style="height: 100px;",fileInput('dataFile', label = h5("Gene Expression Data ", tags$style(type = "text/css", "#q1 {vertical-align: bottom;}"),
-            #bsButton("q1", label = "", icon = icon("question"), size = "extra-small")),
-            #width="85%", accept = c( 'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain', '.csv', '.tsv'))),
-            #bsPopover(id = "q1", title = "Tidy data", content = paste0("You should read the ",  a("tidy data paper", href = "http://vita.had.co.nz/papers/tidy-data.pdf",target="_blank")), placement = "right", trigger = "click", options = list(container = "body")),
+  
+            
             div( style = "height: 85px;",
               fileInput('dataFile', 'Genomic Data File *required', multiple = T, width = "85%",accept = c('text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv'))),
+           
+
             div( style = "height: 85px;", fileInput('classFile','Sample Class File *required',width = "85%",
                 accept = c('text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv'))),
             div(style = "height: 85px;", fileInput('gmtFile','Gene Sets  (GMT file) *required',width = "85%",
@@ -47,11 +47,11 @@ shinyUI(fluidPage(
                   accept = c('text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv'))))),
           
             # check boxes. 
-            div( style = "height: 30px;",checkboxInput("checkbox", label = "Include Hallmark Analysis", value = FALSE)),
-             bsPopover( id = "checkbox",
-              title = "Select if you want to run the Hallmark Analysis",
-              content = "The hallmark gene sets represent 50 important pathways curated by the Molecular Signatures Database with the goal of reducing redundancy " ,
-              placement = "right", trigger = "hover"),
+            #div( style = "height: 30px;",checkboxInput("checkbox", label = "Include Hallmark Analysis", value = FALSE)),
+            # bsPopover( id = "checkbox",
+             # title = "Select if you want to run the Hallmark Analysis",
+              #content = "The hallmark gene sets represent 50 important pathways curated by the Molecular Signatures Database with the goal of reducing redundancy " ,
+              #placement = "right", trigger = "hover"),
             
             div(style = "height: 30px;", checkboxInput("GFRN_sigs", label = "Include Bild Lab Signatures", value = FALSE)),
             bsPopover(id = "GFRN_sigs", title = "Select if you want to run all Bild lab signatures",
@@ -206,3 +206,11 @@ shinyUI(fluidPage(
     #  actionButton("instructions", "instructions")
     #),
       #HTML('<center><img src="./gsoa_front_page.png"></center>'),
+
+
+    #div( style="width:80%; display:inline-block; vertical-align: middle; height: 85px",
+    #fileInput("chosenfile", label = h5("File input"), accept = ".csv")),
+   #div( style="display:inline-block; vertical-align: center;",
+    #bsButton("q1", label = "", icon = icon("question"), style = "info", size = "extra-small"),
+    #bsPopover(id = "q1", title = "Tidy data", content = paste0("You should read the ", a("tidy data paper",  href = "http://vita.had.co.nz/papers/tidy-data.pdf",
+                                 #target="_blank")), placement = "right", trigger = "click", options = list(container = "body") )),
