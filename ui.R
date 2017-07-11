@@ -112,17 +112,17 @@ shinyUI(fluidPage(tagList(
                   )))
             )),
           
-            div(
-              style = "height: 30px;",
-              checkboxInput("checkbox", label = "Include Hallmark Analysis", value = FALSE)
-            ),
-            bsPopover(
-              id = "checkbox",
-              title = "Select if you want to run the Hallmark Analysis",
-              content = "The hallmark gene sets represent 50 important pathways curated by the Molecular Signatures Database with the goal of reducing redundancy " ,
-              placement = "right",
-              trigger = "hover"
-            ),
+           # div(
+           #   style = "height: 30px;",
+           #   checkboxInput("checkbox", label = "Include Hallmark Analysis", value = FALSE)
+           # ),
+           # bsPopover(
+           #   id = "checkbox",
+           #   title = "Select if you want to run the Hallmark Analysis",
+           #   content = "The hallmark gene sets represent 50 important pathways curated by the Molecular Signatures Database with the goal of reducing redundancy " ,
+           #   placement = "right",
+           #   trigger = "hover"
+           # ),
             div(
               style = "height: 30px;",
               checkboxInput("GFRN_sigs", label = "Include Bild Lab Signatures", value = FALSE)
