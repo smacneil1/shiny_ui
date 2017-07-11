@@ -117,7 +117,8 @@ shinyServer(function(input, output, session) {
         #system("xxd -l 10 -p /dev/urandom")   
         system(paste("cp",input$dataFile$datapath, paste("/home/smacneil/gsoa_data", input$dataFile$name, sep="/"), sep=" "))
         system(paste("cp",input$classFile$datapath, paste("/home/smacneil/gsoa_data", input$classFile$name, sep="/"), sep=" "))
-        
+        system(paste("cp",input$gmtFile$datapath, paste("/home/smacneil/gsoa_data", input$gmtFile$name, sep="/"), sep=" "))
+ 
         dataFilePath1 = paste("/data", input$dataFile$name, sep="/")
         
         # copy the files over to the data folder and make a variable for their paths
