@@ -45,9 +45,9 @@ shinyServer(function(input, output, session) {
       
       # add to all file names
       #system("xxd -l 10 -p /dev/urandom")   
-      system(paste("cp",input$dataFile$datapath, paste("/data", input$dataFile$name, sep="/"), sep=" "))
-      system(paste("cp",input$classFile$datapath, paste("/data", input$classFile$name, sep="/"), sep=" "))
-      system(paste("cp",input$gmtFile$datapath, paste("/data", input$gmtFile$name, sep="/"), sep=" "))
+      system(paste("cp",input$dataFile$datapath, paste("/home/smacneil/gsoa_data", input$dataFile$name, sep="/"), sep=" "))
+      system(paste("cp",input$classFile$datapath, paste("/home/smacneil/gsoa_data", input$classFile$name, sep="/"), sep=" "))
+      system(paste("cp",input$gmtFile$datapath, paste("/home/smacneil/gsoa_data", input$gmtFile$name, sep="/"), sep=" "))
       
       dataFilePath1 = paste("/data", input$dataFile$name, sep="/")
       
@@ -75,6 +75,7 @@ shinyServer(function(input, output, session) {
                            classificationAlgorithm=input$Algorithm, numCrossValidationFolds=input$CrossValidation, numRandomIterations=input$Iterations, removePercentLowestExpr=input$LowExpression, 
                            removePercentLowestVar=input$Variance, checkbox=input$GFRN_sigs)}
       
+      
       if (!is.null(input$dataFile) && !is.null(input$dataFile2) && !is.null(input$dataFile3) && is.null(input$dataFile4) && is.null(input$dataFile5))
       {   variables = list(dataFilePath = c(dataFilePath1,  dataFilePath2, dataFilePath3),
                            classFilePath=paste("/data", input$classFile$name, sep="/"),
@@ -97,7 +98,11 @@ shinyServer(function(input, output, session) {
                            removePercentLowestVar=input$Variance, checkbox=input$GFRN_sigs)}
       
       POST('http://gsoa:5000/',body = variables , encode="json")
+      
+      #      output$path <- renderText(c(input$dataFile$datapath,input$dataFile2$name) )
+      
     }
+      
     }
     
     if (input$GFRN_sigs==TRUE) {
@@ -105,6 +110,7 @@ shinyServer(function(input, output, session) {
       if (is.null(input$dataFile) && !is.null(input$classFile)) {shinyjs::alert("Missing Data File")}
       if (is.null(input$classFile) && !is.null(input$dataFile)) {shinyjs::alert("Missing Class File")}
       if (is.null(input$dataFile) && is.null(input$classFile) ) {shinyjs::alert("Missing Data File and Class File")}
+      
       if (!is.null(input$dataFile) && !is.null(input$classFile)) {shinyjs::alert("GSOA is running. \n An e-mail with your results will be sent shortly. ")
         
         # add to all file name
@@ -162,10 +168,14 @@ shinyServer(function(input, output, session) {
                              removePercentLowestVar=input$Variance, checkbox=input$GFRN_sigs)}
         
         POST('http://gsoa:5000/',body = variables , encode="json")
+        
+        #      output$path <- renderText(c(input$dataFile$datapath,input$dataFile2$name) )
+        
       }
     }
+    
+    
   })
+  
+  
 })
-
-#      output$path <- renderText(c(input$dataFile$datapath,input$dataFile2$name) )
-#      output$path <- renderText(c(input$dataFile$datapath,input$dataFile2$name) )

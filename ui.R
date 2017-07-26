@@ -14,10 +14,8 @@ shinyUI(fluidPage(tagList(
   useShinyjs(),
   # contains all tabs
   navbarPage(
-    "Gene Set Omic Analysis (GSOA)",
-    id = "page-nav",
-    theme = shinytheme("yeti"),
-    collapsable = TRUE,
+    "Gene Set Omic Analysis (GSOA)", id = "page-nav", theme = shinytheme("yeti"), collapsable = TRUE,
+    
     # GSOA tab
     tabPanel("Run GSOA",
       br(),
@@ -27,224 +25,51 @@ shinyUI(fluidPage(tagList(
       HTML('<center><h4> GSOA identifies gene sets that differ between two phenotypes by integrating evidence from multi-omic data</h4></center>'),
       
       # Column 1: Data Files
-      div(id = "inputs",
-          column(
-            4,
-            offset = 2,
+      div(id = "inputs", column( 4, offset = 2,
             br(),
             #div(style="height: 100px;",fileInput('dataFile', label = h5("Gene Expression Data ", tags$style(type = "text/css", "#q1 {vertical-align: bottom;}"),
             #bsButton("q1", label = "", icon = icon("question"), size = "extra-small")),
             #width="85%", accept = c( 'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain', '.csv', '.tsv'))),
             #bsPopover(id = "q1", title = "Tidy data", content = paste0("You should read the ",  a("tidy data paper", href = "http://vita.had.co.nz/papers/tidy-data.pdf",target="_blank")), placement = "right", trigger = "click", options = list(container = "body")),
-            div(
-              style = "height: 85px;",
-              fileInput(
-                'dataFile',
-                'Genomic Data File *required',
-                multiple = T,
-                width = "85%",
-                accept = c(
-                  'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv'
-                ))),
-            
-            div(
-              style = "height: 85px;",
-              fileInput(
-                'classFile',
-                'Sample Class File *required',
-                width = "85%",
-                accept = c(
-                  'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv'
-                ))),
-            
-            div(
-              style = "height: 85px;",
-              fileInput(
-                'gmtFile',
-                'Gene Sets  (GMT file) *required',
-                width = "85%",
-                accept = c(
-                  'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv'
-                ))),
+            div( style = "height: 85px;", fileInput('dataFile', 'Genomic Data File *required', multiple = T, width = "85%",accept = c('text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv'))),
+            div( style = "height: 85px;", fileInput( 'classFile', 'Sample Class File *required', width = "85%", accept = c( 'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv' ))),
+            div( style = "height: 85px;", fileInput( 'gmtFile','Gene Sets  (GMT file) *required', width = "85%", accept = c( 'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv' ))),
             
             #hidden things
             a(id = "toggleAdvanced", "Show/hide multi-omic data inputs"),
-            hidden(div(
-              id = "advanced",
-              div(
-                style = "height: 85px;",
-                fileInput(
-                  'dataFile2',
-                  'DNA Sequencing Data.',
-                  width = "85%",
-                  accept = c(
-                    'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv'
-                  ))),
-              
-              div(
-                style = "height: 85px;",
-                fileInput(
-                  'dataFile3',
-                  'Copy Number Variation Data.',
-                  width = "85%",
-                  accept = c(
-                    'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv'
-                  ))),
-              
-              div(
-                style = "height: 85px;",
-                fileInput(
-                  'dataFile4',
-                  'Other Genomic Data.',
-                  width = "85%",
-                  accept = c(
-                    'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv'
-                  ))),
-              
-              div(
-                style = "height: 85px;",
-                fileInput(
-                  'dataFile5',
-                  'Other Genomic Data.',
-                  width = "85%",
-                  accept = c(
-                    'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv'
-                  )))
-            )),
-          
-           # div(
-           #   style = "height: 30px;",
-           #   checkboxInput("checkbox", label = "Include Hallmark Analysis", value = FALSE)
-           # ),
-           # bsPopover(
-           #   id = "checkbox",
-           #   title = "Select if you want to run the Hallmark Analysis",
-           #   content = "The hallmark gene sets represent 50 important pathways curated by the Molecular Signatures Database with the goal of reducing redundancy " ,
-           #   placement = "right",
-           #   trigger = "hover"
-           # ),
-            div(
-              style = "height: 30px;",
-              checkboxInput("GFRN_sigs", label = "Include Bild Lab Signatures", value = FALSE)
-            ),
-            bsPopover(
-              id = "GFRN_sigs",
-              title = "Select if you want to run all Bild lab signatures",
+            hidden(div( id = "advanced",
+           div(  style = "height: 85px;", fileInput( 'dataFile2', 'DNA Sequencing Data.', width = "85%",accept = c( 'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv' ))),
+           div( style = "height: 85px;",fileInput( 'dataFile3','Copy Number Variation Data.',width = "85%",accept = c('text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv' ))),
+           div(style = "height: 85px;",  fileInput( 'dataFile4',  'Other Genomic Data.', width = "85%", accept = c( 'text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv' ))),
+           div( style = "height: 85px;", fileInput( 'dataFile5', 'Other Genomic Data.', width = "85%",accept = c('text/csv','text/comma-separated-values','text/tab-separated-values', 'text/plain','.csv','.tsv'))) )),
+           div( style = "height: 30px;",checkboxInput("GFRN_sigs", label = "Include Bild Lab Signatures", value = FALSE)),
+            bsPopover( id = "GFRN_sigs", title = "Select if you want to run all Bild lab signatures",
               content = "Bild lab signatures consists of experimentallt generated RNA-sequencing signatures from the growth factor receptor network " ,
-              placement = "right",
-              trigger = "hover"
-            )
-            
-
-            
-            )),
+              placement = "right", trigger = "hover" ) )),
       
       ##################
       # Column 2: Variance 
       ##################
       
-      column(
-        4,
-        offset = 1,
+      column(  4, offset = 1, 
         br(),
-        div(
-          style = "height: 85px;",
-          numericInput(
-            "Variance",
-            "% Variance to Filter",
-            value = 10,
-            width = "70%",
-            min = 1,
-            max = 90
-          )),
-        
-        div(
-          style = "height: 85px;",
-          numericInput(
-            "LowExpression",
-            "% Low Gene Expression to Filter",
-            value = 10,
-            width = "70%",
-            min = 1,
-            max = 90
-          )),
-        
-        div(
-          style = "height: 65px;",
-          textInput(
-            'results_h',
-            value = "smacneil88@gmail.com ",
-            width = "70%",
-            label = 'E-mail Address'
-          )),
-        
+        div(style = "height: 85px;", numericInput( "Variance", "% Variance to Filter",value = 10,width = "70%",min = 1,max = 90 )),
+        div(style = "height: 85px;",  numericInput( "LowExpression","% Low Gene Expression to Filter",value = 10,width = "70%", min = 1,max = 90)),
+        div( style = "height: 65px;", textInput('results_h',value = "smacneil88@gmail.com ",width = "70%",label = 'E-mail Address'  )),
         br(),
-      
         # more hidden stuff  
         a(id = "toggleAdvanced2", "Show/hide additional paramters"),
-        
-        hidden(div(
-          id = "advanced2",
-           div(
-            style = "height: 85px;",
-            selectInput(
-              'Algorithm',
-              label = 'Machine Learning Algorithm.',
-              choices = c("svm", "rf"),
-              width = "70%"
-            )),
-          
-          div(
-          style = "height: 85px;",
-          numericInput(
-            "CrossValidation",
-            "# of Cross Validations",
-            value = 5,
-            min = 1,
-            width = "70%",
-            max = 5
-          )),
-        
-        div(
-          style = "height: 85px;",
-          numericInput(
-            'Iterations',
-            label = 'Number of Iterations.',
-            value = 10,
-            min = 1,
-            width = "70%",
-            max = 1000
-          ))
-        )),
-        
+        hidden(div(id = "advanced2",  
+        div(style = "height: 85px;",selectInput('Algorithm', label = 'Machine Learning Algorithm.', choices = c("svm", "rf"), width = "70%" )),
+        div( style = "height: 85px;",numericInput("CrossValidation","# of Cross Validations",value = 5, min = 1, width = "70%", max = 5  )),
+        div( style = "height: 85px;", numericInput('Iterations', label = 'Number of Iterations.',value = 10, min = 1,width = "70%",max = 1000)) )),
         br(),
         br(),
-
-        actionButton(
-          "run",
-          "Run",
-          width = "60%",
-          icon("paper-plane"),
-          style = "color: black; background-color:green;  border-color: grey; padding:9px"
-        ),
-        bsTooltip(
-          id = "run",
-          title = "Click run once files are uploaded",
-          placement = "right",
-          trigger = "hover"
-        ),
-        
+        actionButton("run", "Run",width = "60%", icon("paper-plane"),style = "color: black; background-color:green;  border-color: grey; padding:9px" ),
+           bsTooltip( id = "run",title = "Click run once files are uploaded",placement = "right", trigger = "hover" ),
         br(),
         br(),
-        actionButton(
-          "refresh",
-          "Refresh Inputs",
-          width = "60%",
-          icon("paper-plane"),
-          style = "color: black; background-color:  grey;  border-color: grey; padding:9px"
-        )
-        
-        ),
+        actionButton("refresh", "Refresh Inputs", width = "60%", icon("paper-plane"),style = "color: black; background-color:  grey;  border-color: grey; padding:9px" ) ),
       
       # Rendered Objects
       column(12,
@@ -265,8 +90,7 @@ shinyUI(fluidPage(tagList(
     tabPanel("Code", includeMarkdown("doc/code.md")),
     tabPanel("Contact", includeMarkdown("doc/contact.md")),
     tabPanel("Software Updates", includeMarkdown("doc/version.md"))
-  )
-)))
+  ))))
 
 
 ### NOT USING
@@ -322,3 +146,16 @@ shinyUI(fluidPage(tagList(
 #               Semicolon=';',
 #               Tab='\t'),
 #             ','),
+
+# div(
+#   style = "height: 30px;",
+#   checkboxInput("checkbox", label = "Include Hallmark Analysis", value = FALSE)
+# ),
+# bsPopover(
+#   id = "checkbox",
+#   title = "Select if you want to run the Hallmark Analysis",
+#   content = "The hallmark gene sets represent 50 important pathways curated by the Molecular Signatures Database with the goal of reducing redundancy " ,
+#   placement = "right",
+#   trigger = "hover"
+# ),
+
