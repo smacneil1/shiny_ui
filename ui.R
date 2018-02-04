@@ -76,7 +76,7 @@ shinyUI(fluidPage(tagList(
         br(),
         br(),
         #HTML('<h4> File Validation </h4>'),
-        verbatimTextOutput("path"),
+        #verbatimTextOutput("path"),
         #allows for message errors
         singleton(tags$head(tags$script(src = "message-handler.js"))),
         #htmlOutput("sessionInfo"),

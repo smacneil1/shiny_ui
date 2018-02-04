@@ -12,7 +12,7 @@ library(httr)
 #library(ggplot2)
 
 # By default, the file size limit is 5MB. It can be changed by setting this option. Here we'll raise limit to 9MB.
-options(shiny.maxRequestSize = 9*1024^2)
+options(shiny.maxRequestSize = 1000*1024^2)
 
 # main server function
 shinyServer(function(input, output, session) {
@@ -31,7 +31,10 @@ shinyServer(function(input, output, session) {
     
     output$path <- renderText(input$GFRN_sigs)
     # pop up message dialog boxes if files arn't present
-    
+    if (input$results_h=="") {shinyjs::alert("Please Provide an E-mail Address")}
+   
+
+ 
     if (input$GFRN_sigs==FALSE) {
     if (is.null(input$dataFile) && is.null(input$classFile) && is.null(input$gmtFile)) {shinyjs::alert("Missing Data File, Class File, and GMT File")}
     if (is.null(input$dataFile) && is.null(input$classFile) && !is.null(input$gmtFile)) {shinyjs::alert("Missing Data File and Class File")}
